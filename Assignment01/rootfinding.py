@@ -21,7 +21,7 @@ def bisect(f, a, b, tol, v=False):
         resultsTable = []
 
     for i in range(iterations):
-        c = a + b / 2
+        c = (a + b) / 2
         fc = f(c)
 
         if v:
@@ -30,18 +30,18 @@ def bisect(f, a, b, tol, v=False):
         if fa * fc < 0:
             fb = fc
             b = c
-        elif fb * fc < 0:
+        elif fb * fc <0 :
             fa = fc
-            a = b
+            a = c
         elif fc == 0:
             break
         else:
             raise Exception("ERROR: f(a) and f(b) Must be On Opposite Sides of the x Axis")
 
-        if v:
-            return c, resultsTable
+    if v:
+        return c, resultsTable
 
-        return c
+    return c
 
 
 '''
@@ -64,17 +64,14 @@ def fixedPointIteration(g, x0, tol, maxIterations=100, v=False):
             if v:
                 resultsTable.append([i, x1, error])
 
-            if error < tol:
+            if error <= tol:
                 break
             x0 = x1
 
     except(OverflowError):
         return math.inf, False
 
-    # Forbidden Python Syntax
-    converged = True if error < tol else False
-
     if v:
-        return x1,  converged, resultsTable
+        return x1,  error <= tol, resultsTable
 
-    return x1, converged
+    return x1, error <= tol
