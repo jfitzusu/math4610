@@ -2,8 +2,7 @@
 ### Jacob Fitzgerald (A02261889)
 
 ## Docs
-https://github.io/jfitzusu/math4610/docs
-TODO: Make Webpage
+https://jfitzusu.github.io/math4610/
 
 ## Task 1
 Code for Newton's Method:
