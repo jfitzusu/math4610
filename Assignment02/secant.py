@@ -5,22 +5,21 @@ x0: Initial Guess
 x1: Second Initial Guess
 tol: Maximum Permissible Error
 maxIter: Maximum Iterations to Test Before Giving Up
--v: Verbose Mode, Tracks/Returns Intermittent Results
-Returns: The Approximate Root, Convergence Status, Intermittent Results if Toggled
+-v: Verbose Mode
+Returns: The Approximate Root, Convergence Status
 '''
 def secant(f, x0, x1, tol, maxIter=1000, v=False):
     f0 = f(x0)
     f1 = f(x1)
     x2 = 0
     error = tol * 10
-    resultsTable = []
 
     for i in range(maxIter):
         x2 = x1 - f1 * (x1 - x0) / (f1 - f0)
         error = abs(x2 - x1)
 
         if v:
-            resultsTable.append([i, x2, error])
+            print(f"Iteration={i}. xApprox={x2}. Error={error}")
 
         if error <= tol:
             break
@@ -29,8 +28,5 @@ def secant(f, x0, x1, tol, maxIter=1000, v=False):
         x1 = x2
         f0 = f1
         f1 = f(x1)
-
-    if v:
-        return x2, error <= tol, resultsTable
 
     return x2, error <= tol

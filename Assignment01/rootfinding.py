@@ -6,8 +6,8 @@ f: The Function in Question
 a: Start of the Interval Containing at Least One Root
 b: End of the Interval Containing at Least One Root
 tol: Maximum Permissible Error
--v: Verbose Mode, Tracks/Returns Intermittent Results
-Returns: The Approximate Root, Intermittent Results if Toggled
+-v: Verbose Mode, Prints Debug Info
+Returns: The Approximate Root
 NOTES: f(a) and f(b) Must be On Opposite Sides of the x Axis
 '''
 def bisect(f, a, b, tol, v=False):
@@ -17,29 +17,25 @@ def bisect(f, a, b, tol, v=False):
     iterations = math.ceil(math.log2((b - a) / tol))
     fa = f(a)
     fb = f(b)
-    if v:
-        resultsTable = []
+    c = (a + b) / 2
 
     for i in range(iterations):
         c = (a + b) / 2
         fc = f(c)
 
         if v:
-            resultsTable.append([i + 1, c, math.fabs(b - c)])
+            print(f"iteration: {i}. xApprox: {c:.4E}. error: {math.fabs(b - c):.4E}")
 
         if fa * fc < 0:
             fb = fc
             b = c
-        elif fb * fc <0 :
+        elif fb * fc <0:
             fa = fc
             a = c
         elif fc == 0:
             break
         else:
             raise Exception("ERROR: f(a) and f(b) Must be On Opposite Sides of the x Axis")
-
-    if v:
-        return c, resultsTable
 
     return c
 
@@ -54,15 +50,16 @@ v: Verbose Mode, Tracks/Returns Intermittent Results
 Returns: Approximation of Root, True/False if Iteration Converged, Intermittent Results if Toggled
 '''
 def fixedPointIteration(g, x0, tol, maxIterations=100, v=False):
-    if v:
-        resultsTable = []
+    x1 = x0
+    error = 10 * tol
 
     try:
         for i in range(maxIterations):
             x1 = g(x0)
             error = math.fabs(x1 - x0)
+
             if v:
-                resultsTable.append([i, x1, error])
+                print(f"iteration: {i}. xApprox: {x1:.4E}. error: {error:.4E}.")
 
             if error <= tol:
                 break
@@ -70,9 +67,6 @@ def fixedPointIteration(g, x0, tol, maxIterations=100, v=False):
 
     except(OverflowError):
         return math.inf, False
-
-    if v:
-        return x1,  error <= tol, resultsTable
 
     return x1, error <= tol
 

@@ -3,7 +3,7 @@ from rootfinding import fixedPointIteration, bisect
 
 def problem1():
     # Original Function
-    f = lambda x: x * math.e ** x
+    f = lambda x: x * math.e ** -x
 
     # Fixed Point Alterations
     g1 = lambda x: x - f(x)
