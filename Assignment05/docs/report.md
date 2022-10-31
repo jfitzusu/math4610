@@ -103,9 +103,9 @@ We get convergence results very close to the predicted values of alpha/beta usin
 ## Task 2
 
 **Derivation:**
-![](derive1.png)
-![](derive2.png)
-![](derive3.png)
+![](derive1.jpg)
+![](derive2.jpg)
+![](derive3.jpg)
 
 **Code for Analytical Method:**
 

@@ -251,6 +251,36 @@ Shared libraries can be found at https://github.com/jfitzusu/math4610/tree/main/
 error_calculation.a -> Error Calculation Library
 accuracy.a -> Floating Point Accuracy Library
 
+### Testing Code
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include "accuracysingle.c"
+#include "accuracydouble.c"
+#include "abserror.c"
+#include "relerror.c"
+
+
+int main() {
+        printf("Relative Error of %f to %f: %f \n", 10.1, 10.0, relError(10.0, 10.1));
+        printf("Absolute Error of %f to %f: %f \n", 10.1, 10.0, absError(10.0, 10.1));
+        printf("Accuracy of a Single: %i \n", accuracySingle(500));
+        printf("Accuracy of a Double: %i \n", accuracyDouble(500));
+    }
+```
+
+This code runes a simple test of the relative and absoulte error functions, as well as the single and double accuracy functions. We should expecte the abs error of 10.1 relative to 10.0 to be 0.1, and the relative error to be 0.01. Additionally, as c should be using the normal floating point standard, a single should be 24 bits, and a double should be 53.
+
+### Testing Output
+```
+Relative Error of 10.100000 to 10.000000: 0.010000
+Absolute Error of 10.100000 to 10.000000: 0.100000
+Accuracy of a Single: 24
+Accuracy of a Double: 53
+```
+
+As we can see, our results are exactly as expected. Sometimes languages will use funky implementations of singles/doubles, so it's good to see that c uses exactly what you'd expect. Additionally our error functions seem to be working, as we got exactly the results predicted.
+
 ## Task 5
 ### Implementation Code
 ```
