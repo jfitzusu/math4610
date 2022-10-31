@@ -4,6 +4,9 @@
 ## Docs
 https://jfitzusu.github.io/math4610/
 
+## Code
+https://github.com/jfitzusu/math4610/tree/main/Assignment02
+
 ## Task 1
 **Code for Newton's Method:**
 ```
@@ -530,7 +533,8 @@ This code returns the approximation of the root, as well as whether or not the a
 
 The "Hybrid Secant" method works exactly the same as the "Hybrid Newton" method, simply using the secant method in place of the newton. It should be used in the same cases that the secant method should be used (complex derivatives). 
 
-Code for Testing:
+**Code for Testing:**
+
 ```
 def testHybridSecant():
     print("TESTING HYBRID SECANT METHOD")
@@ -589,6 +593,7 @@ CONVERGED: True.
 In this case, we get the same results as with our hybrid newton function. It's apparent that strictInterval is off, as the results kind of end up all over the place. This can be fixed, as seen below.
 
 **Strict Output:**
+
 ```
 TESTING ALL ROOTS FOR HYBRID SECANT METHOD
 ------------------------------------------
