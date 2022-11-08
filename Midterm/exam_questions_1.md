@@ -22,10 +22,10 @@ Machine precicision is the accuracy of the standard used for storing the numbers
 
 
 4. What is a nonlinear equation? Compare this to linear equations.
-A linear equation is one where the change in input is proportial to the change in output, and can be expressed in the form output = a * input + b. A non-linear equation is an equation that does not follow this property, such as input = sqrt(output) or output = input ^ 2. 
+A linear equation is one where the change in input(s) is proportial to the change in output, and can be expressed in the form output = a * input1 + a2 * input2 + b, etc. A non-linear equation is an equation that does not follow this property, such as input = sqrt(output) or output = input ^ 2 or any other such combination. 
 
 5. Is the bisection (i) efficient, (ii) accurate, (iii) robust? What smoothness conditions on the function are needed for Bisection to work?
-The biseciton method is not very efficient. It converges linearly, when other algorithms can do much better. Additionally, you will basically allways need a fixed number of iterations, as (how we coded it) it has one, very niche short-out condition that isn't likely to be met before the loop finishes.
+The biseciton method is not very efficient. It makes a lot of function calls (two per step), and itt converges linearly, when other algorithms can do much better. This means you'll need more iterations to get a given error. Additionally, you will basically allways need a fixed number of iterations, as (how we coded it) it has one, very niche short-out condition that isn't likely to be met before the loop finishes.
 
 It's not very accurate. As mentioned before, it converges linearly, so it will take a lot of work to get decent accuracy using the bisection method.
 
@@ -54,7 +54,25 @@ Disadvantages:
 If the derivative of f(x) is difficulte to calculate or expensive to evalulate. 
 
 10. Distinguish between the terms data fitting, interpolation, and polynomial iteration.
+Data Fiting: Approximating a curve/Line to a set of points. In class, this was done by solving a linear system of equations using matrix multiplication to give us coefficients for the equation y = ax + b. In this case there is assumed to be some error.
+
+Interpolation: Fitting a curve exactly to a precise set of points (just big enough) to evaluate points between the known ones. This means our polynomial will be of (at most) degree n-1 for n points. There is no error when it comes to the curve fitting your original points. 
+
+Plynomial Interpolation: Interpolation using a polynomial function as your result. This can be done through a variety of methods, such as with legrange polynomials, and produces exact results. I'm assuming this implies the existence of non-polynomial interpolation, maybe using sines or something. 
+
+
+
+
 11. State one advantage and two disadvantages of using the monomial basis for polynomial interpolation.
+Pros:
+  More exact than data fitting.
+
+Cons:
+  At large polynomial sizes, the Vandermonde matrix can be hard if not impossible to solve.
+  Adding new data points leads to an entirley new problem. 
+
+Basically everything I can find say's it's just the worse version of legrange. It is easier to set up I guess?
+
 12. Define Lagrange polynomials (the cardinal functions) and how are they used in the development of algorithms for numerical integration.
 
 The lagrange plynomials are polynomials which solve the following conditions:
@@ -69,6 +87,11 @@ These are useful for numerical integration because if you don't know the exact i
       | error | \leq C\ h^p
     $$$
     Write a brief explanation of the formula in terms the increment, $$h$$, the constant, $$C$$, and how to compute these parameters. Use an example like Newton's method for finding roots of functions.
+
+The formula puts a maximum bound on our error term. As we usually don't care about the actual value of the error, because calculating it could be more work than it's worth, we usually take all extraneous terms not related to step size and shove them into a constant, in this case, C. What we really care about is how fast our error shrinks. This will usually be mostly determined by the changes in our step size h. The p in this equation represents this relationship, between step size and error. The larger p is, the faster the error shrinks when we decrease our step size, and the faster out sytem will converge. 
+
+Computing these is usually done with taylor series. In the case of newtons method...
+
 14. Discuss the pros and cons of using the Trapezoid rule for approximating definite integrals.
 Pros:
   Converges quadratically
