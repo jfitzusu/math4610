@@ -17,7 +17,7 @@ Robustness -> Robusntess is a measure of how well the program can handle differe
 
 3. Define the rounding unit (or the machine precision) and explain the importance of the rounding unit for computation.
 
-Machine precicision is the accuracy of the standard used for storing the numbers into binary. In other words, it's then umber of binary digits a system uses to express a number. It's impossible to accuratly express every float, because there are uncountable many between even just 0 and 1. This means that a system is only as accurate as it's representation of floats. In most systems, this is done using either floats or doubles, floats using 23 bits for storage, doubles using 52 (with a single implicit bit).  It's importatnt because any number with a trailing decimal that exceeds this limit will be truncated/rounded (which can actually lead to cascading differences in our numeric representation), meaning our calculations can't get more accurate than the machine precision. 
+Machine precicision is the accuracy of the standard used for storing the numbers into binary. In other words, it's then umber of binary digits a system uses to express a number. It's impossible to accuratly express every float, because there are uncountable many between even just 0 and 1. This means that a system is only as accurate as it's representation of floats. In most systems, this is done using either floats or doubles, floats using 23 bits for storage, doubles using 52 (with a single implicit bit each).  It's importatnt because any number with a trailing decimal that exceeds this limit will be truncated/rounded (which can actually lead to cascading differences in our numeric representation), meaning our calculations can't get more accurate than the machine precision. 
 
 
 
@@ -25,7 +25,7 @@ Machine precicision is the accuracy of the standard used for storing the numbers
 A linear equation is one where the change in input(s) is proportial to the change in output, and can be expressed in the form output = a * input1 + a2 * input2 + b, etc. A non-linear equation is an equation that does not follow this property, such as input = sqrt(output) or output = input ^ 2 or any other such combination. 
 
 5. Is the bisection (i) efficient, (ii) accurate, (iii) robust? What smoothness conditions on the function are needed for Bisection to work?
-The biseciton method is not very efficient. It makes a lot of function calls (two per step), and itt converges linearly, when other algorithms can do much better. This means you'll need more iterations to get a given error. Additionally, you will basically allways need a fixed number of iterations, as (how we coded it) it has one, very niche short-out condition that isn't likely to be met before the loop finishes.
+The biseciton method is not very efficient. It makes a lot of function calls (two per step), and itt converges linearly, when other algorithms can do much better. This means you'll need more iterations to get a given error. Additionally, you will basically allways need a fixed number of iterations, as (how we coded it) it has one, very niche short-out condition that isn't likely to be met before the loop finishes. However, it does only need to evaluate the function itself, while other methods may need to evaluate the derivative or do other complex calculations. 
 
 It's not very accurate. As mentioned before, it converges linearly, so it will take a lot of work to get decent accuracy using the bisection method.
 
@@ -65,7 +65,7 @@ Plynomial Interpolation: Interpolation using a polynomial function as your resul
 
 11. State one advantage and two disadvantages of using the monomial basis for polynomial interpolation.
 Pros:
-  More exact than data fitting.
+  Can tell you if you haev a solution.
 
 Cons:
   At large polynomial sizes, the Vandermonde matrix can be hard if not impossible to solve.
@@ -88,14 +88,14 @@ These are useful for numerical integration because if you don't know the exact i
     $$$
     Write a brief explanation of the formula in terms the increment, $$h$$, the constant, $$C$$, and how to compute these parameters. Use an example like Newton's method for finding roots of functions.
 
-The formula puts a maximum bound on our error term. As we usually don't care about the actual value of the error, because calculating it could be more work than it's worth, we usually take all extraneous terms not related to step size and shove them into a constant, in this case, C. What we really care about is how fast our error shrinks. This will usually be mostly determined by the changes in our step size h. The p in this equation represents this relationship, between step size and error. The larger p is, the faster the error shrinks when we decrease our step size, and the faster out sytem will converge. 
+The formula puts a maximum bound on our error term. As we usually don't care about the actual value of the error, because calculating it could be more work than it's worth, we usually take all extraneous terms not related to step size and shove them into a constant, in this case, C (which will often depend of the value of our function and it's derivatives at certain points). What we really care about is how fast our error shrinks. This will usually be mostly determined by the changes in our step size h. The p in this equation represents this relationship, between step size and error. The larger p is, the faster the error shrinks when we decrease our step size, and the faster out sytem will converge. 
 
 Computing these is usually done with taylor series. In the case of newtons method...
 
 14. Discuss the pros and cons of using the Trapezoid rule for approximating definite integrals.
 Pros:
   Converges quadratically
-  Only Needs n+1 funciton evaluations (when usin gcomposite).
+  Only Needs n+1 funciton evaluations (when using composite).
   Perfect accuracy for linear systems.
   Same function evaluations, but technically less work than Simpson's due to no multiplicaiton of terms.
 
@@ -111,4 +111,4 @@ P[k+1] = P[k] + h(alpha * P[k] - beta * P[k] ^ 2)
 whereas the implicit euler would be descibewd by the equation:
 P[k + 1] = P[k] + h(alpha * P[k + 1] - beta * P[k + 1] ^ 2)
 
-Explicit requires less work to solve the equation, but needs smaller steps to maintin accuracy, so different systems will call for a differnt approach. They also are both O(h) for error. 
+Explicit requires less work to solve the equation, but needs smaller steps to maintin accuracy, so different systems will call for a differnt approach. 
