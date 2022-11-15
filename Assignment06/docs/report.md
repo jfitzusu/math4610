@@ -6,8 +6,8 @@ https://jfitzusu.github.io/math4610/
 
 ## Code
 https://github.com/jfitzusu/math4610/tree/main/Assignment06
-https://github.com/jfitzusu/math4610/tree/main/Assignment06/mymodules/approximation
-https://github.com/jfitzusu/math4610/tree/main/Assignment06/mymodules/operations
+https://github.com/jfitzusu/math4610/tree/main/mymodules/approximation
+https://github.com/jfitzusu/math4610/tree/main/mymodules/operations
 
 All test code can be found in the *tests06.py* and *test06.c* files in the Assignment06 directory, while code for specific functions can be found under the python/c files named after them in the approximation and operations directories.  
 
@@ -454,10 +454,141 @@ As we can see, we get a massive increase in performance by increasing the number
 
 ## Task 4
 
+This is a pretty interesting problem. As far as I know, there aren't really any well known or interesting integrals out there that evaluate to *e* without actually including it. However, we can use one very important property of e to get our approximation. That is:
+$$
+\frac{d}{dx}e^x=e^x
+$$
+This rule allows us to set up an initial value problem, with an assumed value of $e^x$ that isn't actually explicitly specified. That is:
+$$
+f(x, t) = \frac{dx}{dt}x(t) \\
+f(x, t) = x(t) \\
+x(0) = 1
+$$
+This means that we can use our explicit euler method to calculate our function values, without having to rely on knowing *e*. We can perform an integration:
+$$
+\int_{0}^{1}f(x, t)dt = e^1 - e^0 =  e - 1
+$$
 
 
+However, as we're using the explicit euler method, whose results rely on previous calls, it's pretty hard to run code in parralel, so in this case we'll stick to serial code, as you didn't explicitly ask for parallel code. We could use the implicit euler for more accurate approximations, but that would involve a whole lot of differnt libraries. 
+
+Honestly, I'm not sure if an integration really helps here, it might help us converge faster, it might not. We're stacking approximations here, so I'd assume we get more error, but I'm not really sure how to do this without a euler method. We technically don't even need the integration, so I'm not really sure. 
+
+Our pseudocode should look something like this:
+
+```
+approximateE(steps): // Steps Must be Even
+	total4 = 0
+	total2 = 0
+	y = 1
+	h = 1 / steps
+	for i in range(1, steps // 2 - 1):
+		y = y + y * h
+		total4 = total4 + y
+		y = y + y * h
+		total2 = total2 +  y
+	y = y + y * h
+	total4 = total4 + y
+	y = y + y * h
+    
+	total4 = total4 * 4
+	total2 = total2 * 2
+    total = (total4 + total2 + y) * (h / 3)
+    return total + 1
+```
+
+In this case, our final y value should be *e* as well, but as I mentioned before, maybe the integral converges faster or something, I'm not quite sure. We don't really bother keeping track of x values, because they're implied by the explicit euler.
+
+Our actual code looks like this:
+
+```
+import time
+
+def approximateE(steps):
+    start = time.time()
+    assert steps % 2 == 0
+    h = 1 / steps
+    y = 1
+    total4 = 0
+    total2 = 0
+
+    for i in range(1, steps // 2 - 1):
+        y = y + h * y
+        total4 += y
+        y = y + h * y
+        total2 += y
+    y = y + h * y
+    total4 += y
+    y = y + h * y
+
+    total4 *= 4
+    total2 *= 2
+
+    total = (total4 + total2 + y) * (h / 3)
+    return total + 1, time.time() - start
+```
+
+Pretty much the same as above, with a little syntatic sugar, as well as timing code thrown in. Our funcion accepts the following terms:
+
+* Steps: Integer. Number of steps to use in the approximation.
+
+  
+
+It returns the approximation of *e* as a float.
+
+**Testing Code:**
+
+```
+def testE():
+    print("Testing E Approximations:")
+    print("-------------------------")
+    print(f"    Reference Value: {math.e}")
+    i = 10
+    while i <= 1000000:
+        result = approximateE(i)
+        print(f"    {i} Iterations: {result}")
+        i *= 10
+```
+
+**Testing Output:**
+
+```
+Testing E Approximations:
+-------------------------
+    Reference Value: 2.718281828459045
+    10 Iterations: 2.166527307 (0.0 Seconds)
+    100 Iterations: 2.6564288754049237 (0.0 Seconds)
+    1000 Iterations: 2.7120204975143265 (0.0 Seconds)
+    10000 Iterations: 2.7176549245277357 (0.0 Seconds)
+    100000 Iterations: 2.7182191303469354 (0.006026029586791992 Seconds)
+    1000000 Iterations: 2.71827555857059 (0.06197404861450195 Seconds)
+```
+
+**Testing Output (Optimized):**
+
+```
+Testing E Approximations:
+-------------------------
+    Reference Value: 2.718281828459045
+    10 Iterations: 2.166527307 (0.0 Seconds)
+    100 Iterations: 2.6564288754049237 (0.0 Seconds)
+    1000 Iterations: 2.7120204975143265 (0.0 Seconds)
+    10000 Iterations: 2.7176549245277357 (0.0 Seconds)
+    100000 Iterations: 2.7182191303469354 (0.00699925422668457 Seconds)
+    1000000 Iterations: 2.71827555857059 (0.060999393463134766 Seconds)
+```
+
+So python actually has a -O flag, just like c. The big difference, however, is that it pretty much does nothing. Apparently, it mostly just optimizes for file size, and removes debug options like assert statements. So in this case, there's literally no difference in code execution time. I would've coded this in c, but as we mentioned, parrellel processing for this problem is pretty much impossible, so there really isn't much of a point. We did get a pretty good approximation of *e*, but according to some tests I ran, no better than without integration. 
 
 ## Task 5
+
+# IF YOU DON'T WANT TO READ ALL THIS CHECK OUT THE DOCS
+
+# [Operations](https://jfitzusu.github.io/math4610/operations/)
+
+
+
+
 
 ### Vector Addition
 

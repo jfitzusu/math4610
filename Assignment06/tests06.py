@@ -1,4 +1,7 @@
 import math
+import sys
+sys.path.append('../mymodules/operations')
+sys.path.append('../mymodules/approximation')
 
 from vectoraddition import vectorAddition
 from vectorsubtraction import vectorSubtraction
@@ -11,6 +14,9 @@ from action import action
 from matrixaddition import matrixAddition
 from matrixsubtraction import matrixSubtraction
 from matrixmultiply import matrixMultiply
+
+from approximatee import approximateE
+
 
 def testVectorAddition():
     print("Testing Vector Addition:")
@@ -190,17 +196,27 @@ def testMatrixMultiply():
     print(f"    Expected Product: {expectedMultiply}")
     print("\n\n\n")
 
+def testE():
+    print("Testing E Approximations:")
+    print("-------------------------")
+    print(f"    Reference Value: {math.e}")
+    i = 10
+    while i <= 1000000:
+        result = approximateE(i)
+        print(f"    {i} Iterations: {result[0]} ({result[1]} Seconds)")
+        i *= 10
 
 if __name__ == "__main__":
-    testVectorAddition()
-    testVectorSubtraction()
-    testVectorAddAndSub()
-    testScalarMultiply()
-    testNorm()
-    testDotProduct()
-    testCrossProduct()
-    testTripleProduct()
-    testAction()
-    testMatrixAdd()
-    testMatrixSub()
-    testMatrixMultiply()
+    # testVectorAddition()
+    # testVectorSubtraction()
+    # testVectorAddAndSub()
+    # testScalarMultiply()
+    # testNorm()
+    # testDotProduct()
+    # testCrossProduct()
+    # testTripleProduct()
+    # testAction()
+    # testMatrixAdd()
+    # testMatrixSub()
+    # testMatrixMultiply()
+    testE()

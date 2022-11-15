@@ -8,7 +8,7 @@ b: End of Interval
 n: Number of Subintervals to Approximate With
 '''
 def simpson(f, a, b, n=100):
-    h = (b - a) / n
+
 
     sum2 = 0
     sum4 = 0
