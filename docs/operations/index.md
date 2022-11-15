@@ -5,4 +5,10 @@
 * [Vector Norm L2](norm2.md)
 * [Vector Norm LInf](norminf.md)
 * [Vector Scalar Multiplication](scalarmultiply.md)
-* [Vector ]
+* [Vector Dot Product](dotproduct.md)
+* [Vector Cross Product](crossproduct.md)
+* [Vector Triple Product](tripleproduct.md)
+* [Action of Matrix on Vecotr](action.md)
+* [Matrix Addition](matrixaddition.md)
+* [Matrix Subtraction](matrixsubtraction.md)
+* [Matrix Product](matrixmultiply.md)
