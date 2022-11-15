@@ -5,7 +5,21 @@
 Absolute Error is Defined as: Absolute Error = Measured Value - Actual Value
 Relative Error is Defined as: Relative Error = (Measured Value - Actual Value) / Actual Value
 
-When both terms are Approximatley 1, Either is a Good Measure. When both terms are very large in magnitude, absolute error is a better measure. When both terms are very small in value, relative error is a better measure.  
+When both terms are Approximatley 1, Either is a Good Measure. When both terms are very large in magnitude, absolute error is a better measure. When both terms are very small in value, relative error is a better measure.
+
+So if u=1000 and v=1001
+```
+abserror = (1001 - 1000) = 1
+relerror = (1001 - 1000) / 1000 = .1%
+```
+Absolute error is a much better measure of error because relative errror is so small.
+
+Or if u = 0.001 and v=0.0011
+```
+abserror = (0.0011 - 0.001) = 0.0001
+relerror = (0.0011 - 0.001) / 0.001 = 10%
+```
+Relative error is am uch better measure of error here because absolute error is so small.
 
 
 2. Describe the difference between the concepts of accuracy, efficiency, and robustness in the development of algorithms for the approximation of solutions of mathematical problems.
@@ -38,7 +52,7 @@ Yes. As mentioned above, the bisection method is pretty much gaurenteed to conve
 
 7. What are basic conditions for fixed point iteration to converge when searching for the root of a nonlinear function of a single variable. How are these conditions related to the iteration function, $$g(x))$$, defined in terms of the original function, $$f$$, defined as the input of a root finding problem?
 
-A fixed point iteration will converge with the derivitive of g(x) relative to x is less than one for your starting point. For this to happen, the funciton must be continusly differnetiable as well.  
+A fixed point iteration will converge with the derivitive of g(x) relative to x is less than one for your root. For this to happen, the funciton must be continusly differnetiable as well. This means it's hard to know if your function will actually converge before testing it, making it hard to work with.  
 
 8. State two advantages and two disadvantages of Newton's method for finding roots of nonlinear functions.
 Advantages:
@@ -48,37 +62,36 @@ Advantages:
 
 Disadvantages:
   The initial guess must be close to the root.
-  You must compute f'(x).
+  You must compute and evaluate f'(x).
 
 9. Why would a person use the Secant method in place of Newton's method?
-If the derivative of f(x) is difficulte to calculate or expensive to evalulate. 
+If the derivative of f(x) is difficulte to calculate or expensive to evalulate. It converges superlineraly, while newton's converges quadratically, so it's a toss up between more iterations, and not having to calculate/evaluate the derivative. 
 
 10. Distinguish between the terms data fitting, interpolation, and polynomial iteration.
 Data Fiting: Approximating a curve/Line to a set of points. In class, this was done by solving a linear system of equations using matrix multiplication to give us coefficients for the equation y = ax + b. In this case there is assumed to be some error.
 
 Interpolation: Fitting a curve exactly to a precise set of points (just big enough) to evaluate points between the known ones. This means our polynomial will be of (at most) degree n-1 for n points. There is no error when it comes to the curve fitting your original points. 
 
-Plynomial Interpolation: Interpolation using a polynomial function as your result. This can be done through a variety of methods, such as with legrange polynomials, and produces exact results. I'm assuming this implies the existence of non-polynomial interpolation, maybe using sines or something. 
+Plynomial Interpolation: Interpolation using a polynomial function as your result. This can be done through a variety of methods, such as with legrange polynomials, and produces exact results. This is one of many forms of interpolation. This is usually a preferable form because the result is easy to work with due to its polynomial nature.
 
 
 
 
 11. State one advantage and two disadvantages of using the monomial basis for polynomial interpolation.
 Pros:
-  Can tell you if you haev a solution.
+  The mononomial basis is good for proving a solution exists. If the rows of the VanderMonde matrix are linearly independant, that proves a unique solution exists. However, the VanderMonde matrix is pretty hard to work with. 
 
 Cons:
   At large polynomial sizes, the Vandermonde matrix can be hard if not impossible to solve.
-  Adding new data points leads to an entirley new problem. 
+  Adding new data points leads to an entirley new problem, as opposed to lengrange interpolation, which allows you to reuse cardinal functions for the same points. 
 
-Basically everything I can find say's it's just the worse version of legrange. It is easier to set up I guess?
 
 12. Define Lagrange polynomials (the cardinal functions) and how are they used in the development of algorithms for numerical integration.
 
-The lagrange plynomials are polynomials which solve the following conditions:
-li(xj) = 0
+The lagrange plynomials are polynomials which solve the following conditions for a set of points {x0, ..., xn}:
+li(xj!=i) = 0
 li(xi) = 1
-They can be expressed by PRODUCT: k = 0, n (k != i) (x-xk) / (xi - xk)
+They can be expressed by PRODUCT: [k = 0, n] (k != i) (x-xk) / (xi - xk)
 
 These are useful for numerical integration because if you don't know the exact integral of f(x), or if it's difficult to calcuate (or if you don't even have f(x) and just have a set of points), you can use a set of legrange polynomials to represent it, and integrate them. They'll all integrate easily because they're polynomials. Additionally, because they only depend on x values, they can be calculated ahead of time, and reused for different functions that are being compared over the same x values. 
 
@@ -91,6 +104,30 @@ These are useful for numerical integration because if you don't know the exact i
 The formula puts a maximum bound on our error term. As we usually don't care about the actual value of the error, because calculating it could be more work than it's worth, we usually take all extraneous terms not related to step size and shove them into a constant, in this case, C (which will often depend of the value of our function and it's derivatives at certain points). What we really care about is how fast our error shrinks. This will usually be mostly determined by the changes in our step size h. The p in this equation represents this relationship, between step size and error. The larger p is, the faster the error shrinks when we decrease our step size, and the faster out sytem will converge. 
 
 Computing these is usually done with taylor series. In the case of newtons method...
+By Definition of Root:
+f(x*) = 0
+Add Zero:
+f(xk + x* -xK) = 0
+Rearange:
+f(xk - (xk - x*)) = 0
+By Definition of Error:
+f(xk - ek) = 0
+TSE about xk:
+f(xk) + f'(xk)(xk - ek -xk) + (f''(xk)(xk-ek-xk) ^ 2) / 2 + H.O.T. = 0
+Assume f'(x*) != 0 and Rearange:
+f(xk) - f'(xk)ek + (f''(xk)ek ^ 2) / 2
+Divide:
+f(xk) / f'(xk) - ek + (f''(xk)ek ^ 2) / 2
+By Definition of Error/Newton's Method:
+xk+1 - x* = (f''(xk)ek^2) / 2
+ek+1 = (f''(xk)ek ^ 2) / 2
+
+Result:
+c = f''(xk) / 2
+p = 2
+h = Not Present, Not a Step Size Controllable Method
+
+
 
 14. Discuss the pros and cons of using the Trapezoid rule for approximating definite integrals.
 Pros:
