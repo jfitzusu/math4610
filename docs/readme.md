@@ -2,4 +2,4 @@
 ## Root Finding Docs
 [Root Finding](/rootfinding)
 ## Operation Docs
-[Operations](/operations)
+[Operations](/operations/index.md)
