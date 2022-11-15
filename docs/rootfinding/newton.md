@@ -38,7 +38,7 @@ from newton import newton
   * Data Type: boolean
   * Valid Input: True/False
   * Default: False
-  * Description: Verbose mode. If True, the function will return a log of all computed approximations and their error.
+  * Description: Verbose mode. If True, the function will log itermediate results to the console.
 
 **Output:** 
 ### *Root:*
@@ -51,10 +51,8 @@ from newton import newton
   * Possible Values: True/False
   * Description: Returns True if the Function Converged, False Otherwise. The Approximated Root is Only Accurate When True is Returned.
 
-### *Log:*
-  * Data Type: List[List[int, float, float]]
-  * Possible Values: N/A
-  * Description: Log of All Computed Approximations. Only Returns When Verbose Mode is Enabled. 
+### *Console:*
+  * If the verbose flag is toggled, intermediate results will be printed to the console for debugging purposes.
 
 **Usage/Example:**
 
@@ -75,18 +73,29 @@ Console Output:
 True
 9.313225746154785e-10
 ```
+As we can see, our function fount a root at approximatley 1, and, when our original expression was evaluated at this point, it yeilds approximatley zero. The Results are not exact, because, as mentioned before, this is an approximation. 
 
 **Implementation/Code:** The Following is the Code for newton()
 ```
+import sympy
+
+'''
+Approximates the Root of a Function Using the Newton Method
+f: The Function in Question. MUST BE A SYMPY EXPRESSION
+x0: Initial Guess
+tol: Maximum Permissible Error
+maxIter: Maximum Iterations to Test Before Giving Up
+-v: Verbose Mode, Tracks/Returns Intermittent Results
+Returns: The Approximate Root, Convergence Status
+
+NOTES: f'(x0) Cannot Equal 0
+NOTES: FUNCTION MUST BE A SYMPY EXPRESSION
+'''
 def newton(f, x0, tol, maxIter=1000, v=False):
     x1 = 0
     x = sympy.symbols('x')
     derF = sympy.diff(f, x)
     error = 10 * tol
-
-    if v:
-        resultsTable = []
-
     for i in range(maxIter):
         derivative = derF.subs(x, x0)
 
@@ -96,17 +105,13 @@ def newton(f, x0, tol, maxIter=1000, v=False):
         x1 = x0 - f.subs(x, x0) / derivative
         error = abs(x1 - x0)
         if v:
-            resultsTable.append([i, x1, error])
+            print(f'Iteration={i}. xApprox={x1}. Error={error}')
 
         if error <= tol:
             break
 
         x0 = x1
 
-    if v:
-        return x1, error <= tol, resultsTable
-
     return x1, error <= tol
-
 ```
-**Last Modified:** September/2022
+**Last Modified:** November/2022

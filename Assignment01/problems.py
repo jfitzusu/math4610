@@ -1,5 +1,8 @@
 import math
-from rootfinding import fixedPointIteration, bisect
+import sys
+sys.path.append('../mymodules/rootfinding')
+
+from fixedpoint import fixedPointIteration
 
 def problem1():
     # Original Function

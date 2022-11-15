@@ -1,3 +1,6 @@
+import sys
+sys.path.append('../mymodules/rootfinding')
+
 import sympy
 import math
 from newton import newton

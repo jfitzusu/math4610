@@ -1,3 +1,5 @@
+import math
+
 '''
 Approximates the Root of a Function Using the Secant Method, Falling Back to Bisection if It Doesn't Converge
 f: The Function in Question, a Lambda
