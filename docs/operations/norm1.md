@@ -62,7 +62,7 @@ Testing Vector Norm:
 ```
 As you can see, the L1 norm is much different than other norm evaluations. 
 
-**Implementation/Code:** The Following is the Code for scalarMultiply()
+**Implementation/Code:** The Following is the Code for norm1()
 ```
 def norm1(vector):
     assert len(vector) > 0

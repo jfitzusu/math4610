@@ -81,7 +81,7 @@ True
 4.190357548550342e-08
 ```
 
-**Implementation/Code:** The Following is the Code for secant()
+**Implementation/Code:** The Following is the Code for hybridSecant()
 ```
 def hybridSecant(f, a, b, tol, maxiter=1000, maxTries=10, strictInterval=False):
     error = 10 * tol
