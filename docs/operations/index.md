@@ -8,7 +8,7 @@
 * [Vector Dot Product](dotproduct.md)
 * [Vector Cross Product](crossproduct.md)
 * [Vector Triple Product](tripleproduct.md)
-* [Action of Matrix on Vecotr](action.md)
+* [Action of Matrix on Vector](action.md)
 * [Matrix Addition](matrixaddition.md)
 * [Matrix Subtraction](matrixsubtraction.md)
 * [Matrix Product](matrixmultiply.md)
