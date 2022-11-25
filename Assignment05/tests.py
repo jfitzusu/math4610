@@ -1,4 +1,8 @@
 import math
+import sys
+sys.path.append('../mymodules/rootfinding')
+sys.path.append('../mymodules/integration')
+sys.path.append('../mymodules/ivp')
 
 from implicitlogistics import implicitLogistics
 from analyticallogistics import analyticalLogistics
@@ -84,11 +88,11 @@ if __name__ == "__main__":
     # testImplicitLogistics(0.01, 0.0005, 10.0, 500)
     # testImplicitLogistics(2.0, 0.0005, 10.0, 10)
 
-    # print("Testing Analytical Method")
-    # print("-----------------------------")
-    # testAnalyticLogistics(0.2, 0.0005, 10.0, 100)
-    # testAnalyticLogistics(0.01, 0.0005, 10.0, 500)
-    # testAnalyticLogistics(2.0, 0.0005, 10.0, 10)
+    print("Testing Analytical Method")
+    print("-----------------------------")
+    testAnalyticLogistics(0.2, 0.0005, 10.0, 100)
+    testAnalyticLogistics(0.01, 0.0005, 10.0, 500)
+    testAnalyticLogistics(2.0, 0.0005, 10.0, 10)
 
 
     # print("Comparing Methods")
@@ -108,8 +112,8 @@ if __name__ == "__main__":
     # testTrapezoid(f, fString, 0, math.pi / 4, 16)
 
 
-    print("Testing Simpson's Approximation")
-    print("-------------------------------")
-    f = lambda x: math.e ** (-(x * x))
-    fString = "e ^ (- x ^ 2)"
-    testSimpsons(f, fString, 0, math.pi / 4, 8)
+    # print("Testing Simpson's Approximation")
+    # print("-------------------------------")
+    # f = lambda x: math.e ** (-(x * x))
+    # fString = "e ^ (- x ^ 2)"
+    # testSimpsons(f, fString, 0, math.pi / 4, 8)

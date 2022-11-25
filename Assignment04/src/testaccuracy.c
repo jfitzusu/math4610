@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "accuracysingle.c"
-#include "accuracydouble.c"
-#include "abserror.c"
-#include "relerror.c"
+#include "../../mymodules/accuracy/accuracysingle.c"
+#include "../../mymodules/accuracy/accuracydouble.c"
+#include "../../mymodules/accuracy/abserror.c"
+#include "../../mymodules/accuracy/relerror.c"
 
 
 int main() {

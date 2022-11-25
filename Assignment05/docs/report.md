@@ -342,16 +342,16 @@ n: Number of Subintervals to Approximate With
 '''
 def simpson(f, a, b, n=100):
     h = (b - a) / n
-
     sum2 = 0
     sum4 = 0
     x = a
-    for i in range(math.floor(n // 2)):
+    for i in range(math.floor(n // 2) - 1):
         x += h
         sum4 += f(x)
         x += h
         sum2 += f(x)
 
+    sum4 += f(x + h)
     sum2 *= 2
     sum4 *= 4
 
@@ -412,21 +412,25 @@ This code applies our Simpson method to the function f(x) = e ^ (- (x ^ 2)) over
 Testing Simpson's Approximation
 -------------------------------
     Testing Trapezoidal Approximation of f(x)=e ^ (- x ^ 2) from a=0 to b=0.7853981633974483 with 4 Subintervals
-        Result: 0.7205445046928987
+        Result: 0.6499055993840337
     Testing Trapezoidal Approximation of f(x)=e ^ (- x ^ 2) from a=0 to b=0.7853981633974483 with 8 Subintervals
-        Result: 0.6852013365779863
+        Result: 0.6498818839235538
     Testing Trapezoidal Approximation of f(x)=e ^ (- x ^ 2) from a=0 to b=0.7853981633974483 with 16 Subintervals
-        Result: 0.6675401531260239
+        Result: 0.6498804267988076
     Testing Trapezoidal Approximation of f(x)=e ^ (- x ^ 2) from a=0 to b=0.7853981633974483 with 32 Subintervals
-        Result: 0.6587101992811151
+        Result: 0.6498803361175071
     Testing Trapezoidal Approximation of f(x)=e ^ (- x ^ 2) from a=0 to b=0.7853981633974483 with 64 Subintervals
-        Result: 0.6542952620377933
+        Result: 0.6498803304559893
     Testing Trapezoidal Approximation of f(x)=e ^ (- x ^ 2) from a=0 to b=0.7853981633974483 with 128 Subintervals
-        Result: 0.6520877958931411
+        Result: 0.6498803301022391
     Testing Trapezoidal Approximation of f(x)=e ^ (- x ^ 2) from a=0 to b=0.7853981633974483 with 256 Subintervals
-        Result: 0.6509840629755829
+        Result: 0.6498803300801318
     Testing Trapezoidal Approximation of f(x)=e ^ (- x ^ 2) from a=0 to b=0.7853981633974483 with 512 Subintervals
-        Result: 0.6504321965264742
-    Equation For Error Using Scipy Linear Regression: E = 0.4884 * h ^ 1.1136
+        Result: 0.6498803300787487
+    Equation For Error Using Scipy Linear Regression: E = 0.0173 * h ^ 4.0107
 ```
-In this case, the power of h is approximatley 1, this is confirmed by looking at our log/log graph, which has a similar slope. This makes sense, as the Simpson method is a "higher order" approximation than the trapezoidal rule, so it could realistically have much better convergence. 
+
+**Graph:**
+![](simpson.png)
+
+In this case, the power of h is approximatley 4, this is confirmed by looking at our log/log graph, which has a similar slope. This makes sense, as the Simpson method is a "higher order" approximation than the trapezoidal rule, so it could realistically have much better convergence. 

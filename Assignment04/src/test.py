@@ -1,4 +1,9 @@
 import math
+import sys
+sys.path.append('../../mymodules/derivation')
+sys.path.append('../../mymodules/fitting')
+sys.path.append('../../mymodules/ivp')
+
 from derivapprox import approxSecondDerivative
 from linearfit import linearFit
 from scipy import stats
