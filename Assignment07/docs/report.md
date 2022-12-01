@@ -1,4 +1,4 @@
-# Math 4610 Tasksheet 2
+# Math 4610 Tasksheet 7
 ### Jacob Fitzgerald (A02261889)
 
 ## Docs
@@ -8,7 +8,22 @@ https://jfitzusu.github.io/math4610/
 https://github.com/jfitzusu/math4610/tree/main/Assignment07
 https://github.com/jfitzusu/math4610/tree/main/mymodules/operations
 
-All test code can be found in the *test07.c* file in the Assignment06 directory, while code for specific functions can be found under the c files named after them in the operations directory.  
+All test code can be found in the *test07.c* file in the Assignment06 directory, while code for specific functions can be found under the c files named after them in the operations directory.
+
+## Running Tests
+Tests can be run by first navigating to the test directory.
+
+Next, run the following command to compile the tests and link the source code.
+```
+gcc -o tests test07.c -lm -fopenmp
+```  
+
+Finally, run the compilled code
+```
+./tests
+```
+
+If you want to run only specific tests, you can comment out their calls in the main() function of test07.c before compiling the code.
 
 ## Task 1
 

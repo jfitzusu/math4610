@@ -82,11 +82,11 @@ def testSimpsons(f, fString, a, b, n):
 
 
 if __name__ == "__main__":
-    # print("Testing Implicit Euler Method")
-    # print("-----------------------------")
-    # testImplicitLogistics(0.2, 0.0005, 10.0, 100)
-    # testImplicitLogistics(0.01, 0.0005, 10.0, 500)
-    # testImplicitLogistics(2.0, 0.0005, 10.0, 10)
+    print("Testing Implicit Euler Method")
+    print("-----------------------------")
+    testImplicitLogistics(0.2, 0.0005, 10.0, 100)
+    testImplicitLogistics(0.01, 0.0005, 10.0, 500)
+    testImplicitLogistics(2.0, 0.0005, 10.0, 10)
 
     print("Testing Analytical Method")
     print("-----------------------------")
@@ -95,25 +95,25 @@ if __name__ == "__main__":
     testAnalyticLogistics(2.0, 0.0005, 10.0, 10)
 
 
-    # print("Comparing Methods")
-    # print("-----------------")
-    # compareLogistics(0.2, 0.0005, 10.0, 100)
-    # compareLogistics(0.01, 0.0005, 10.0, 500)
-    # compareLogistics(2.0, 0.0005, 10.0, 10)
+    print("Comparing Methods")
+    print("-----------------")
+    compareLogistics(0.2, 0.0005, 10.0, 100)
+    compareLogistics(0.01, 0.0005, 10.0, 500)
+    compareLogistics(2.0, 0.0005, 10.0, 10)
 
 
-    # print("Testing Trapezoidal Approximation")
-    # print("_________________________________")
-    # f = lambda x: math.e ** (-(x * x))
-    # fString = "e ^ (- x ^ 2)"
-    # testTrapezoid(f, fString, 0, math.pi / 4, 2)
-    # testTrapezoid(f, fString, 0, math.pi / 4, 4)
-    # testTrapezoid(f, fString, 0, math.pi / 4, 8)
-    # testTrapezoid(f, fString, 0, math.pi / 4, 16)
+    print("Testing Trapezoidal Approximation")
+    print("_________________________________")
+    f = lambda x: math.e ** (-(x * x))
+    fString = "e ^ (- x ^ 2)"
+    testTrapezoid(f, fString, 0, math.pi / 4, 2)
+    testTrapezoid(f, fString, 0, math.pi / 4, 4)
+    testTrapezoid(f, fString, 0, math.pi / 4, 8)
+    testTrapezoid(f, fString, 0, math.pi / 4, 16)
 
 
-    # print("Testing Simpson's Approximation")
-    # print("-------------------------------")
-    # f = lambda x: math.e ** (-(x * x))
-    # fString = "e ^ (- x ^ 2)"
-    # testSimpsons(f, fString, 0, math.pi / 4, 8)
+    print("Testing Simpson's Approximation")
+    print("-------------------------------")
+    f = lambda x: math.e ** (-(x * x))
+    fString = "e ^ (- x ^ 2)"
+    testSimpsons(f, fString, 0, math.pi / 4, 8)

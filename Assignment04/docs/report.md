@@ -7,7 +7,27 @@ https://github.com/jfitzusu/math4610
 ### Docs
 https://jfitzusu.github.io/math4610/
 
-All source code can be found under assignment04/src.
+All source code can be found in the mymodules folder in the appropriate subdirectory.
+
+All testing code can be found in in the assignment04 folder in the src subdirectory.
+
+### Running Tests
+All python based test code can be run by navigating to the test directory, and running python test.py from the command line.
+
+All c based test code can be run by compiling the *testaccuracy.c* file. This is best done by using the shared libraries.
+
+First, navigate to the testing directory.
+
+Next, run:
+```
+gcc -o test testaccuracy.c ../../mymodules/accuracy/shared/*.a -lm
+```
+
+Finally, exeucte the compiled code:
+```
+./test
+```
+
 
 ## Task 1
 ![](proof1.png)
@@ -133,6 +153,8 @@ def testLinearRegression():
     plt.show()
 ```
 
+For this code, we calulcate several points for a real, known function. We then use varying stepsizes to approximate the linear regeression, and observe how our error changes, in order study the convergence of our function.
+
 #### Output
 ```
 Approximating Linear fit For ((x - PI / 2) * tan(x) ** 2) / (x * x + 65) at x0 = PI / 4
@@ -247,7 +269,7 @@ int accuracySingle(int maxLoops) {
 This code, written in C, shows how many (binary) digits of accuracy a single (float) has in C.
 
 ### Shared Library
-Shared libraries can be found at https://github.com/jfitzusu/math4610/tree/main/Assignment04/shared.
+Shared libraries can be found at https://github.com/jfitzusu/math4610/tree/main/mymodules/accuracy/shared/.
 error_calculation.a -> Error Calculation Library
 accuracy.a -> Floating Point Accuracy Library
 

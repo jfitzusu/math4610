@@ -3,7 +3,7 @@
 
 ## Links
 ### Code
-https://jfitzusu.github.com/math4610/
+https://github.com/jfitzusu/math4610
 ### Docs
 https://jfitzusu.github.io/math4610/
 
@@ -419,7 +419,22 @@ double fprimeval(double xval) {
 
 This code sets up our mathematical function: f(x) = x * e ^ -x as a c function, and passes it to our newton method as a pointer, printing the result to the console. Additionally, the derivative of our function (fprimeval) is also passed to our Newton method in the same way, so that it can actually work. 
 
-Results of Running the Code:
+We can run this code by first compiling our source function with:
+```
+gcc -c ../src/newton.c
+```
+
+And then compiling our test code:
+```
+gcc -o testRootFinding testRootFinding.c *.o -lm
+```
+
+And finally running the compiled code with:
+```
+./testRootFinding
+```
+
+To Get:
 ```
 Newton Root: 0.000000
 ```
@@ -472,7 +487,23 @@ double fprimeval(double xval) {
 
 This code uses each of our methods descripted in Task 1 to approximate the root of f(x) = x * e ^ -x. It's the same as the code for testing the Newton method, just applied to every method. It uses a c function to represent our mathematical function, and passes it to each of our methods by pointer. A g(x) = x - f(x) is used for fixed point methods, and the derivative of the function (fprimeval) is passed to the newton/hybrid newton methods in order to allow them to complete their approximations. 
 
-**Testing Output:**
+
+We can run this code by first compiling our source function with:
+```
+gcc -c ../src/*.c
+```
+
+And then compiling our test code:
+```
+gcc -o testRootFinding testRootFinding.c *.o -lm
+```
+
+And finally running the compiled code with:
+```
+./testRootFinding
+```
+
+To Get:
 ```
 Bisection Root: -0.000026
 Fixed Point Root: 0.000000
@@ -509,7 +540,21 @@ Screenshot:
 ![](screenshot.png)
 
 ## Task 5
-Results of Running Newly Compiled Tests:
+To run the tests again, we have to use a slightly different command.
+
+First, we need to recompile the tests using the shared library we created in step 4.
+```
+ gcc -o testRootFinding testrootfinding.c ../shared/root_finding.a -lm
+```
+
+For this command, we simply give it the location of the library and the compiler does the work. The -lm flag is needed so that external libraries (such as math) actually get linked in. 
+
+We can run our compiled object code the same as before, with:
+```
+./testRootFinding
+```
+
+To get:
 ```
 Bisection Root: -0.000026
 Fixed Point Root: 0.000000

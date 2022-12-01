@@ -1,4 +1,4 @@
-# Math 4610 Tasksheet 2
+# Math 4610 Tasksheet 5
 ### Jacob Fitzgerald (A02261889)
 
 ## Docs
@@ -6,7 +6,19 @@ https://jfitzusu.github.io/math4610/
 
 ## Code
 https://github.com/jfitzusu/math4610/tree/main/Assignment05
-All test code can be found in the *tests.py* file, while code for specific functions can be found under the python files named after them. 
+
+https://github.com/jfitzusu/math4610/tree/main/mymodules
+
+All test code can be found in the *tests.py* file in the assignment05 directory.
+
+Implementation code can be found under the appropriate subdirectory in the mymodules directory.
+
+## Running Tests
+ALl test code can be run by navigating to the test directory, and exeucting the
+```
+python tests.py
+```
+command from a command line interface.
 
 ## Task 1
 **Code for Implicit Euler Method:**

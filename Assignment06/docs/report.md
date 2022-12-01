@@ -1,4 +1,4 @@
-# Math 4610 Tasksheet 2
+# Math 4610 Tasksheet 6
 ### Jacob Fitzgerald (A02261889)
 
 ## Docs
@@ -9,7 +9,32 @@ https://github.com/jfitzusu/math4610/tree/main/Assignment06
 https://github.com/jfitzusu/math4610/tree/main/mymodules/approximation
 https://github.com/jfitzusu/math4610/tree/main/mymodules/operations
 
+
 All test code can be found in the *tests06.py* and *test06.c* files in the Assignment06 directory, while code for specific functions can be found under the python/c files named after them in the approximation and operations directories.  
+
+## Running Tests
+
+To run python tests, first navigate to the test directory.
+
+Next, open a command line interface, and run the following command:
+```
+python tests.py
+```
+
+This should execute all tests mentioned in this report. If you want to only execute specific tests, you'll have to edit the tests06.py file, and comment out the calls to tests you don't want under the main execution path.
+
+
+To run c tests, first navigate to the test directory.
+
+Compile the test code, and link in the source code using the following command:
+```
+gcc -o tests test06.c -lm -fopenmp
+```
+
+Finally, run the code using
+```
+./tests
+```
 
 ## Task 1
 
