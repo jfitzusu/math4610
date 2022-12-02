@@ -1,5 +1,7 @@
-float * vectorScalar(float* v, float scalar, int s1) {
-    float* result = (float*)malloc(s1 * sizeof(float));
+#include <stdlib.h>
+
+double * vectorScalar(double* v, double scalar, int s1) {
+    double* result = (double*)malloc(s1 * sizeof(double));
     for (int i = 0; i < s1; i++) {
         result[i] = scalar * v[i];
     }

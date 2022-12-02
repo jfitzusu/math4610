@@ -4,10 +4,10 @@
 #include <omp.h>
 
 #define NUM_THREADS 4
-float ** matrixMultiply(float** matrix1, float** matrix2, int s1, int s2, int s3) {
-    float** result = (float**)malloc(s1 * sizeof(float*));
+double ** matrixMultiply(double** matrix1, double** matrix2, int s1, int s2, int s3) {
+    double** result = (double**)malloc(s1 * sizeof(double*));
     for (int i = 0; i < s1; i++) {
-        result[i] = (float*)malloc(s3 * sizeof(float));
+        result[i] = (double*)malloc(s3 * sizeof(double));
     }
 
     omp_set_num_threads(NUM_THREADS);

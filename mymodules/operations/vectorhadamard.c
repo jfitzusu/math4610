@@ -1,7 +1,8 @@
 #include <omp.h>
+#include <stdlib.h>
 
-float * vectorHadamard(float* vector1, float* vector2, float size, double* time) {
-    float* result = (float*)malloc(size * sizeof(float));
+double * vectorHadamard(double* vector1, double* vector2, double size, double* time) {
+    double* result = (double*)malloc(size * sizeof(double));
     double startTime = omp_get_wtime();
     for (int i = 0; i < size; i++) {
         result[i] = vector1[i] * vector2[i];

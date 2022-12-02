@@ -4,13 +4,13 @@
 #include <omp.h>
 
 #define NUM_THREADS 4
-float ** matrixKronecker(float** matrix1, float** matrix2, int s1, int s2, int s3, int s4, double* time) {
+double ** matrixKronecker(double** matrix1, double** matrix2, int s1, int s2, int s3, int s4, double* time) {
     int size1 = s1 * s3;
     int size2 = s2 * s4;
     double startTime = omp_get_wtime();
-    float** result = (float**)malloc(size1 * sizeof(float*));
+    double** result = (double**)malloc(size1 * sizeof(double*));
     for (int i = 0; i < size1; i++) {
-        result[i] = (float*)malloc(size2 * sizeof(float));
+        result[i] = (double*)malloc(size2 * sizeof(double));
     }
 
     omp_set_num_threads(NUM_THREADS);

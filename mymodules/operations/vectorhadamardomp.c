@@ -1,9 +1,10 @@
 #include <omp.h>
 #include <math.h>
+#include <stdlib.h>
 
 #define NUM_THREADS 4
-float * vectorHadamardOMP(float* vector1, float* vector2, float size, double* time) {
-    float* result =  (float*)malloc(size *  sizeof(float));
+double * vectorHadamardOMP(double* vector1, double* vector2, double size, double* time) {
+    double* result =  (double*)malloc(size *  sizeof(double));
     double startTime = omp_get_wtime();
     omp_set_num_threads(NUM_THREADS);
 

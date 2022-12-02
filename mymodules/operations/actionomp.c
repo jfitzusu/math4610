@@ -1,9 +1,10 @@
 
 #include <omp.h>
+#include <stdlib.h>
 
 #define NUM_THREADS 4
-float * actionOMP(float** matrix, float* vector, int s1, int s2) {
-    float* result = (float*)malloc(s1 * sizeof(float));
+double * actionOMP(double** matrix, double* vector, int s1, int s2) {
+    double* result = (double*)malloc(s1 * sizeof(double));
 
     omp_set_num_threads(NUM_THREADS);
     #pragma omp parallel

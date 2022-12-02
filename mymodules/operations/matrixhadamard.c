@@ -4,11 +4,11 @@
 #include <omp.h>
 
 #define NUM_THREADS 4
-float ** matrixHadamard(float** matrix1, float** matrix2, int s1, int s2, double* time) {
+double ** matrixHadamard(double** matrix1, double** matrix2, int s1, int s2, double* time) {
     double startTime = omp_get_wtime();
-    float** result = (float**)malloc(s1 * sizeof(float*));
+    double** result = (double**)malloc(s1 * sizeof(double*));
     for (int i = 0; i < s1; i++) {
-        result[i] = (float*)malloc(s2 * sizeof(float));
+        result[i] = (double*)malloc(s2 * sizeof(double));
     }
 
     omp_set_num_threads(NUM_THREADS);

@@ -1,9 +1,10 @@
 #include <omp.h>
+#include <stdlib.h>
 
-float ** outerProduct(float* vector1, float* vector2, float size1, float size2, double* time) {
-    float** result = (float**)malloc(size1 * sizeof(float*));
+double ** outerProduct(double* vector1, double* vector2, double size1, double size2, double* time) {
+    double** result = (double**)malloc(size1 * sizeof(double*));
     for (int i = 0; i < size1; i++) {
-        result[i] = (float*)malloc(size2 * sizeof(float));
+        result[i] = (double*)malloc(size2 * sizeof(double));
     }
 
     double startTime = omp_get_wtime();
