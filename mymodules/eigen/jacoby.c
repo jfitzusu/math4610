@@ -1,7 +1,16 @@
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
 #include <math.h>
+
+#include "../operations/vectorscalar.c"
+#include "../operations/actionomp.c"
+#include "../operations/vectordot.c"
+#include "../operations/norm.c"
+#include "../operations/daction.c"
+#include "../operations/vectoradd.c"
+#include "../operations/vectorsub.c"
 
 
 double * jacoby(double** A,  double* x0, double* b, double tol, int maxIter, int s1, double* time) {

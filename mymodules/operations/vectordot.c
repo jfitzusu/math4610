@@ -1,3 +1,4 @@
+#pragma once
 #include <stdlib.h>
 
 double vectorDot(double* v1, double* v2, int size) {

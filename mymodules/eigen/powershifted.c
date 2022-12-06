@@ -1,3 +1,4 @@
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
@@ -22,5 +23,5 @@ double powerShifted(double** A,  double* v0, double lambda, double tol, int maxI
 
     double result = powerInverse(B, v0, tol, maxIter, s1, time);
     *time = omp_get_wtime() - startTime;
-    return result;
+    return result + lambda;
 }

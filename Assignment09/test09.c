@@ -1,19 +1,29 @@
 
+#include <stdio.h>
+#include <stdlib.h>
 
-
+#include "../mymodules/eigen/powerOMP.c"
+#include "../mymodules/eigen/powerinverse.c"
+#include "../mymodules/eigen/powershifted.c"
+#include "../mymodules/eigen/powerall.c"
+#include "../mymodules/eigen/powerallomp.c"
+#include "../mymodules/eigen/powerallgs.c"
+#include "../mymodules/operations/backsubs.c"
+#include "../mymodules/eigen/powerallgsomp.c"
 
 
 
    
-void testPower1(double (*f)()) {
-    int s1 = 5;
-    int s2 = 5;
-    double matrix1Template[5][5] = 
-                    {{50, 4, 3, 4, 6},
-                    {9, 50, 5, 8, 3},
-                    {1, 3, 50, 4, 1},
-                    {8, 9, 7, 50, 1},
-                    {0, 3, 3, 3, 50}};
+void testPower(double (*f)()) {
+    int s1 = 6;
+    int s2 = 6;
+    double matrix1Template[6][6] = 
+                    {{18,0,1,0,1,1},
+                    {0,24,0,1,0,1},
+                    {1,0,18,0,1,1},
+                    {0,1,1,12,1,0},
+                    {1,0,0,1,24,0},
+                    {0,1,1,1,0,6}};
     
     double * vector = (double*)malloc(s1 * sizeof(double));
 
@@ -37,23 +47,17 @@ void testPower1(double (*f)()) {
 
 }
 
-void testPower2(double (*f)()) {
-    int s1 = 12;
-    int s2 = 12;
-    double matrix1Template[12][12] = 
-                    {{1000, 4, 5, 9, 9, 8, 4, 3, 9, 6, 6, 7},
-                    {0, 1000, 5, 2, 9, 6, 3, 1, 8, 6, 4, 1},
-                    {8, 9, 1000, 5, 6, 7, 3, 5, 6, 0, 3, 9},
-                    {1, 2, 4, 1000, 3, 3, 6, 3, 1, 8, 8, 4},
-                    {8, 8, 9, 3, 1000, 3, 2, 3, 5, 2, 4, 8},
-                    {3, 2, 9, 9, 4, 1000, 5, 6, 9, 2, 5, 3},
-                    {6, 7, 0, 2, 2, 9, 1000, 3, 9, 9, 0, 9},
-                    {7, 4, 9, 2, 9, 7, 2, 1000, 7, 9, 3, 0},
-                    {9, 5, 1, 3, 5, 0, 7, 8, 1000, 9, 0, 5},
-                    {2, 0, 3, 8, 0, 1, 6, 8, 8, 1000, 3, 1},
-                    {2, 3, 4, 8, 8, 8, 7, 3, 8, 8, 1000, 4},
-                    {1, 6, 7, 8, 3, 4, 5, 5, 0, 3, 1, 1000}}
-;
+   
+void testPowerShifted() {
+    int s1 = 6;
+    int s2 = 6;
+    double matrix1Template[6][6] = 
+                    {{18,0,1,0,1,1},
+                    {0,24,0,1,0,1},
+                    {1,0,18,0,1,1},
+                    {0,1,1,12,1,0},
+                    {1,0,0,1,24,0},
+                    {0,1,1,1,0,6}};
     
     double * vector = (double*)malloc(s1 * sizeof(double));
 
@@ -70,22 +74,23 @@ void testPower2(double (*f)()) {
     }
 
     double time;
-    double result = f(matrix1, vector, 0.0000001, 1000, s1, &time);
+    double result = powerShifted(matrix1, vector, 10, 0.000000000001, 1000, s1, &time);
 
     printf("Result: %f\n", result);
     printf("In %f Seconds\n", time);
-    
+
 }
 
-void testPowerShifted(double lambda) {
-    int s1 = 5;
-    int s2 = 5;
-    double matrix1Template[5][5] = 
-                    {{50, 4, 3, 4, 6},
-                    {9, 50, 5, 8, 3},
-                    {1, 3, 50, 4, 1},
-                    {8, 9, 7, 50, 1},
-                    {0, 3, 3, 3, 50}};
+void testPowerAll(double* (*f)()) {
+    int s1 = 6;
+    int s2 = 6;
+    double matrix1Template[6][6] = 
+                    {{18,0,1,0,1,1},
+                    {0,24,0,1,0,1},
+                    {1,0,18,0,1,1},
+                    {0,1,1,12,1,0},
+                    {1,0,0,1,24,0},
+                    {0,1,1,1,0,6}};
     
     double * vector = (double*)malloc(s1 * sizeof(double));
 
@@ -102,52 +107,15 @@ void testPowerShifted(double lambda) {
     }
 
     double time;
-    double result = powerShifted(matrix1, vector, lambda, 0.000000000001, 1000, s1, &time);
-
-    printf("Result: %f\n", result);
+    double* results = f(matrix1, vector, 0.000000000000001, 1000, s1, &time);
+    printf("Results:\n");
+    for (int i = 0; i < s1; i++) {
+        printf("Lambda%i: %f\n", s1 - i, results[i]);
+    }
     printf("In %f Seconds\n", time);
 
 }
 
-void testPowerShifted2(double lambda) {
-    int s1 = 12;
-    int s2 = 12;
-    double matrix1Template[12][12] = 
-                    {{1000, 4, 5, 9, 9, 8, 4, 3, 9, 6, 6, 7},
-                    {0, 1000, 5, 2, 9, 6, 3, 1, 8, 6, 4, 1},
-                    {8, 9, 1000, 5, 6, 7, 3, 5, 6, 0, 3, 9},
-                    {1, 2, 4, 1000, 3, 3, 6, 3, 1, 8, 8, 4},
-                    {8, 8, 9, 3, 1000, 3, 2, 3, 5, 2, 4, 8},
-                    {3, 2, 9, 9, 4, 1000, 5, 6, 9, 2, 5, 3},
-                    {6, 7, 0, 2, 2, 9, 1000, 3, 9, 9, 0, 9},
-                    {7, 4, 9, 2, 9, 7, 2, 1000, 7, 9, 3, 0},
-                    {9, 5, 1, 3, 5, 0, 7, 8, 1000, 9, 0, 5},
-                    {2, 0, 3, 8, 0, 1, 6, 8, 8, 1000, 3, 1},
-                    {2, 3, 4, 8, 8, 8, 7, 3, 8, 8, 1000, 4},
-                    {1, 6, 7, 8, 3, 4, 5, 5, 0, 3, 1, 1000}}
-;
-    
-    double * vector = (double*)malloc(s1 * sizeof(double));
-
-    double** matrix1 = (double**)malloc(s1 * sizeof(double*));
-    for (int i = 0; i < s1; i++) {
-        matrix1[i] = (double*)malloc(s2 * sizeof(double));
-    }
-
-    for (int i = 0; i < s1; i++) {
-        for (int j = 0; j < s2; j++) {
-            matrix1[i][j] = matrix1Template[i][j];
-        }
-        vector[i] = 0.1;
-    }
-
-    double time;
-    double result = powerShifted(matrix1, vector, lambda, 0.0000001, 1000, s1, &time);
-
-    printf("Result: %f\n", result);
-    printf("In %f Seconds\n", time);
-    
-}
 
 void timeFunctions() {
     srand(1);
@@ -184,18 +152,102 @@ void timeFunctions() {
     }
 }
 
+void testBackSubs() {
+        int s1 = 6;
+    int s2 = 6;
+    double matrix1Template[6][6] = 
+                    {{1,1,1,1,1,1},
+                    {0,1,1,1,1,1},
+                    {0,0,1,1,1,1},
+                    {0,0,0,1,1,1},
+                    {0,0,0,0,1,1},
+                    {0,0,0,0,0,1}};
+    
+    double * vector = (double*)malloc(s1 * sizeof(double));
+
+    double** matrix1 = (double**)malloc(s1 * sizeof(double*));
+    for (int i = 0; i < s1; i++) {
+        matrix1[i] = (double*)malloc(s2 * sizeof(double));
+    }
+
+        for (int i = 0; i < s1; i++) {
+        for (int j = 0; j < s2; j++) {
+            matrix1[i][j] = matrix1Template[i][j];
+        }
+        vector[i] = s1 - i;
+    }
+
+    double* results = backSubs(matrix1, vector, s1, s2);
+        printf("Results:\n");
+    for (int i = 0; i < s1; i++) {
+        printf("X%i: %f\n", i, results[i]);
+    }
+}
+void testGauss() {
+    int s1 = 3;
+    int s2 = 3;
+
+    double matrix1Template[3][3] = 
+        {{3, -2, 1},
+        {1, -3, 2},
+        {-1, 2, 4}};
+
+    double vector1Template[4] = {2, 1, 3};
+
+    double * vector1 = (double*)malloc(s1 * sizeof(double));
+    double * vector2 = (double*)malloc(s1 * sizeof(double));
+    double** matrix1 = (double**)malloc(s1 * sizeof(double*));
+    for (int i = 0; i < s1; i++) {
+        matrix1[i] = (double*)malloc(s2 * sizeof(double));
+    }
+
+    for (int i = 0; i < s1; i++) {
+        for (int j = 0; j < s2; j++) {
+            matrix1[i][j] = matrix1Template[i][j];
+        }
+        vector1[i] = vector1Template[i];
+        vector2[i] = 0;
+    }
+
+    double time;
+    double time2;
+    double* result = jacoby(matrix1, vector2, vector1, 0.001, 1000, s1, &time);
+    double* result2 = gauss(matrix1, vector2, vector1, 0.001, 1000, s1, &time2);
+
+    printf("Results:\n");
+    for (int i = 0; i < s1; i++) {
+        printf("x%i (Jacoby) = %f\n", i, result[i]);
+        printf("x%i (Gauss) = %f\n", i, result2[i]);
+    }
+    printf("In %f Seconds\n", time);
+    printf("In %f Seconds\n", time2);
+    printf("\n");
+}
+
 
 
 
 
 int main() {
-    printf("Results for Power Iteration:");
-    testPower1(powerOMP);
-    testPower2(powerOMP);
+    printf("Results for Power Iteration:\n");
+    testPower(powerOMP);
     printf("Results for Inverse Power Iteration:\n");
-    testPower1(powerInverse);
-    testPower2(powerInverse);
+    testPower(powerInverse);
     printf("Results for Shifted power Iteration:\n");
-    testPowerShifted(10);
-    testPowerShifted2(10);
+    testPowerShifted();
+    printf("Results for Comprehensive power Iteration:\n");
+    testPowerAll(powerAll);
+    printf("Results for Parallel Comprehensive power Iteration:\n");
+    testPowerAll(powerAllOMP);
+    printf("Results for Gauss Seidel Power Iteration:\n");
+    testPowerAll(powerAllGS);
+    printf("Results for Gauss Seidel Power Iteration (OMP):\n");
+    testPowerAll(powerAllGSOMP);
+    printf("Testing BACKSUBS:\n");
+    testBackSubs();
+    printf("Testing Gauss:\n");
+    testGauss();
+
+    
+
 }

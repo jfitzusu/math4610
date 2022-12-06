@@ -1,3 +1,4 @@
+#pragma once
 #include <stdlib.h>
 
 double * dAction(double** matrix, double* vector, int s1, int s2) {

@@ -1,3 +1,4 @@
+#pragma once
 #include <stdlib.h>
 
 double * vectorSub(double* v1, double* v2, int s1) {

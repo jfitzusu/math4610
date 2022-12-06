@@ -1,7 +1,15 @@
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
 #include <math.h>
+
+#include "../operations/vectorscalar.c"
+#include "../operations/action.c"
+#include "../operations/vectordot.c"
+#include "../operations/norm.c"
+
+
 
 double powerSimple(double** A,  double* v0, double tol, int maxIter, int s1, double* time) {
     double startTime = omp_get_wtime();

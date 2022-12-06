@@ -1,6 +1,8 @@
-
+#pragma once
 #include <omp.h>
 #include <stdlib.h>
+
+#include "vectordot.c"
 
 #define NUM_THREADS 4
 double * actionOMP(double** matrix, double* vector, int s1, int s2) {

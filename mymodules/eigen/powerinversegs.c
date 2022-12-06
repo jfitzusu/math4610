@@ -1,23 +1,33 @@
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
 #include <math.h>
 
-double powerOptimized(double** A,  double* v0, double tol, int maxIter, int s1, double* time) {
+#include "gauss.c"
+
+double powerInverseGS(double** A,  double* v0, double tol, int maxIter, int s1, double* time) {
     double startTime = omp_get_wtime();
 
 
     int iter = 0;
     double error = tol * 10;
 
+    double* x0 = (double*)malloc(s1 * sizeof(double));
+    for (int i = 0; i < s1; i++) {
+        x0[i] = 0;
+    }
     double* z;
-    double* w = action(A, v0, s1, s1);;
+    double timeTemp;
+    double* w = jacoby(A, x0, v0, tol, maxIter, s1, &timeTemp);
     double lambda0 = 0; 
     double lambda1;
 
     while (iter < maxIter && error > tol) {
         z = vectorScalar(w, 1 / norm(w, s1), s1);
-        w = action(A, z, s1, s1);
+
+        w = gauss(A, x0, z, tol, maxIter, s1, &timeTemp);
+        
 
         lambda1 = vectorDot(z, w, s1);
 
@@ -28,5 +38,5 @@ double powerOptimized(double** A,  double* v0, double tol, int maxIter, int s1, 
     
 
     *time = omp_get_wtime() - startTime;
-    return lambda1;
+    return 1 / lambda1;
 }

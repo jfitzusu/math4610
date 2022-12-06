@@ -1,3 +1,4 @@
+#pragma once
 #include <stdlib.h>
 
 double * vectorScalar(double* v, double scalar, int s1) {
